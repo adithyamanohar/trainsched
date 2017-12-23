@@ -31,6 +31,10 @@ function arrivalCalc() {
 
 	firstTrainConverted = moment(firstTrain, "hh:mm");
 	console.log(moment(firstTrainConverted).format('MMMM Do YYYY, h:mm:ss a'));
+	timeDifference = moment().diff(moment(firstTrainConverted), 'minutes');
+	console.log("This is the time difference " + timeDifference);
+	console.log(" This the timeAAdifference in normal time" + moment(timeDifference).format('MMMM Do YYYY, h:mm:ss a'));
+
 	
 
 
@@ -64,7 +68,7 @@ $("#add-train").on("click", function (event) {
 });  //End of Submit 
 
 
-//Initial Load  and on child added
+//add to firebase
 database.ref().on("child_added", function(snap){
 
 	firstTrain = snap.val().first;
