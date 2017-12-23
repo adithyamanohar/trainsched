@@ -29,8 +29,9 @@ var nextTrain= "";
 
 function arrivalCalc() {
 
-	firstTrainConverted = moment(firstTrain, "hh:mm")
-	console.log
+	firstTrainConverted = moment(firstTrain, "hh:mm");
+	console.log(moment(firstTrainConverted).format('MMMM Do YYYY, h:mm:ss a'));
+	
 
 
 }
@@ -62,4 +63,22 @@ $("#add-train").on("click", function (event) {
 
 });  //End of Submit 
 
+
+//Initial Load  and on child added
+database.ref().on("child_added", function(snap){
+
+	firstTrain = snap.val().first;
+	frequency = snap.val().frequency;
+	arrivalCalc();
+
+	$("#train-schedule").append("<tr><td>" + snap.val().name + 
+		"</td><td>" + snap.val().destination +
+		"</td><td>" + snap.val().frequency + 
+		"</td><td>" + nextTrain +
+		"</td><td>" + minutesAway + "</td></tr>");
+
+// Handle the errors
+}, function(errorObject){
+	console.log("Errors handled: " + errorObject.code);
+}); // end of on child added
 
